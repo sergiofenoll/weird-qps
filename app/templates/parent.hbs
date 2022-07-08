@@ -1,0 +1,23 @@
+{{page-title "Weird QPs"}}
+
+<p>The first link below will take you to route <code>child-a</code>, with no query params.</p>
+<p>The second link will take you to route <code>child-b</code>, also without query params.</p>
+
+<p><code>child-a</code>'s model hook will take 1 second to load. Both routes have two query params, <code>foo</code> and <code>bar</code>.</p>
+
+<p><code>child-a</code> contains a button that sets query params: <code>foo=oof&bar=rab</code>.</p>
+<p>When you click on the button, and then click on the link to go to <code>child-b</code> before the model hook has resolved, you will arrive in the route for <code>child-b</code> with its query params set to <code>foo=oof&bar=rab</code>, even though the <code>LinkTo</code> component had never set query params for the route.</p>
+<p>This is not the case if you only navigate to <code>child-b</code> after the model hook is done.</p>
+<p>The query params are also logged to the console btw.</p>
+
+<LinkTo @route="parent.child-a">
+  Go to Child A
+</LinkTo>
+<br>
+<LinkTo @route="parent.child-b">
+  Go to Child B
+</LinkTo>
+<br>
+<br>
+
+{{outlet}}
